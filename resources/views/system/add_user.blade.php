@@ -30,8 +30,8 @@
                             <label class="label" for="">Giới tính:</label>
                             <select class="form-control" name="gender" id="gender">
                                 <!-- <option>-- Giới tính --</option> -->
-                                <option>Nam</option>
-                                <option>Nữ</option>
+                                <option value="0">Nam</option>
+                                <option value="1">Nữ</option>
                             </select>
                         </div>
 

@@ -1,40 +1,10 @@
-@extends('master')
-@section('asset_footer')
-<script src="js/library.js"></script>
-@endsection
-@section('content')
-
-<div class="row">
-    <input type="hidden" id="userId" name="userId" value="{{$data['user_id']}}">
-    <div class="col-12 btn-save">
-        <button id="btn-save" class="btn-button">Lưu</button>
-    </div>
-    <div class="col-12">
-        <div class="row tl-rowinput">
-            <div class="form-groupk col-2">
-                <label for="">Mã id: </label>
-                <input type="text" class="form-control" name="id" id="id"/>
-            </div>
-            <div class="form-groupk col-2">
-                <label for="">Section: </label>
-                <input type="text" class="form-control form-section" name="section" id="section"/>
-            </div>
-            <div class="form-groupk col-2">
-                <label for="">Value: </label>
-                <input type="text" class="form-control form-value" name="value" id="value"/>
-            </div>
-            <button id ="btn-add" class="btn-button btn-custom">Thêm</button>
-            <button id ="btn-edit" class="btn-button btn-custom">Sửa</button>
-        </div>
-    </div>
-    <div class="col-12 tl-table">
-        <table class="rtable">
+<table class="rtable">
             <thead>
                 <tr>
                     <th>Stt</th>
-                    <th>Id</th>
-                    <th>Section</td>
-                    <th>Value</th>
+                    <th>Mã dịch vụ</th>
+                    <th>Tên dịch vụ</td>
+                    <th>Giá dịch vụ</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -42,11 +12,11 @@
             <tbody>
                 @foreach($data['data'] as $key => $item)
               
-                <tr data-id="{{$item['id']}}">
+                <tr data-id="{{$item['service_id']}}">
                     <td class="stt">{{$item['no']}}</td>
-                    <td class="" >{{$item['id']}}</td>
-                    <td class="row_data" data-colum="section" val="{{$item['library_section']}}" contenteditable>{{$item['library_section']}}</td>
-                    <td class="row_data" data-colum="value"   val="{{$item['library_value']}}" contenteditable>{{$item['library_value']}}</td>
+                    <td class="" >{{$item['service_id']}}</td>
+                    <td class="row_data" data-colum="name" val="{{$item['service_nm']}}" contenteditable>{{$item['service_nm']}}</td>
+                    <td class="row_data" data-colum="price"   val="{{$item['service_price']}}" contenteditable>{{$item['service_price']}}</td>
                     <td class="edit">sửa</td>
                     <td class="delete">xóa</td>
                 </tr>
@@ -56,9 +26,9 @@
 
         <nav aria-label="Page navigation" class="nav-paginate">
               <select class="form-control select-paginate" name="" id="">
-                <option>5</option>
-                <option>10</option>
-                <option>15</option>
+                <option @if( $data['paginate']['limit'] == 5) selected @endif>5</option>
+                <option @if( $data['paginate']['limit'] == 10) selected @endif>10</option>
+                <option @if( $data['paginate']['limit'] == 15) selected @endif>15</option>
               </select>
             <ul class="pagination justify-content-center">
                 <!-- Previous -->
@@ -108,8 +78,3 @@
                  @endif
             </ul>
         </nav>
-
-    </div>
-
-</div>
-@endsection

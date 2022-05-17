@@ -50,7 +50,7 @@ function initEvents() {
                 e.preventDefault();
                 clearErrors();
                 let data = {};
-                data.user=$('#user').val();
+                data.email=$('#email').val();
                 data.password=$('#password').val();
                 console.log(data);
                  //call function ajax_Add

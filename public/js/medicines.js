@@ -10,7 +10,7 @@
  * @version         :   1.0.0
  ***************************************************************************
  */
-$(document).ready(function () {
+ $(document).ready(function () {
     try {
      
         initialize();
@@ -51,8 +51,8 @@ function initEvents() {
                 clearErrors();
                 let data = {};
                 data.id=$('#id').val();
-                data.section=$('#section').val();
-                data.value=$('#value').val();
+                data.medicines=$('#medicines').val();
+                data.price=$('#price').val();
                 data.userId=$('#userId').val();
                 //call function ajax_Add
                 ajax_Add(data);
@@ -111,8 +111,8 @@ function initEvents() {
                 clearErrors();
                 let data = {};
                 data.id=$('#id').val();
-                data.section=$('#section').val();
-                data.value=$('#value').val();
+                data.medicines=$('#medicines').val();
+                data.price=$('#price').val();
                 data.userId=$('#userId').val();
                 //call function ajax_Add
                 ajax_Edit(data);
@@ -180,7 +180,7 @@ function initEvents() {
 function ajax_Add(data){
     $.ajax({
         type: 'get',
-        url:  '/add-library',
+        url:  '/add-medicines',
         dataType: 'json',
         data:data,
         success: function (res) {
@@ -215,7 +215,7 @@ function ajax_Add(data){
 function ajax_Save(data){
     $.ajax({
         type: 'get',
-        url:  '/put-library',
+        url:  '/put-medicines',
         dataType: 'json',
         data:{myArray:data},
         success: function (res) {
@@ -282,16 +282,16 @@ function storge_json($$this,update_date,del_date,isclick){
 function refer_ajax(data){
     $.ajax({
         type: 'get',
-        url:  '/get-edit-library',
+        url:  '/get-edit-medicines',
         dataType: 'json',
         data:data,
         success: function (res) {
             switch (res['status']) {
                 case OK:
                     let data = res['data'];
-                    $('#value').val(data.library_value);
-                    $('#section').val(data.library_section);
-                    $('#id').val(data.library_id).attr('disabled','disabled');
+                    $('#medicines').val(data.medicines_nm);
+                    $('#price').val(data.medicines_price);
+                    $('#id').val(data.medicines_id).attr('disabled','disabled');
                     $('#btn-add').hide();
                     $('#btn-edit').show();
                     break;
@@ -315,7 +315,7 @@ function refer_ajax(data){
 function ajax_Edit(data){
     $.ajax({
         type: 'get',
-        url:  '/patch-library',
+        url:  '/patch-medicines',
         dataType: 'json',
         data:data,
         success: function (res) {
@@ -349,7 +349,7 @@ function ajax_Edit(data){
 function ajaxPagination(data){
     $.ajax({
         type: 'get',
-        url: '/paginate-library',
+        url: '/paginate-medicines',
         data:data,
         beforeSend: function() {
         },

@@ -1,6 +1,6 @@
 @extends('master')
 @section('asset_footer')
-<script src="js/library.js"></script>
+<script src="js/medicines.js"></script>
 @endsection
 @section('content')
 
@@ -12,16 +12,16 @@
     <div class="col-12">
         <div class="row tl-rowinput">
             <div class="form-groupk col-2">
-                <label for="">Mã id: </label>
+                <label for="">Mã thuốc: </label>
                 <input type="text" class="form-control" name="id" id="id"/>
             </div>
             <div class="form-groupk col-2">
-                <label for="">Section: </label>
-                <input type="text" class="form-control form-section" name="section" id="section"/>
+                <label for="">Tên thuốc: </label>
+                <input type="text" class="form-control form-section" name="medicines" id="medicines"/>
             </div>
             <div class="form-groupk col-2">
-                <label for="">Value: </label>
-                <input type="text" class="form-control form-value" name="value" id="value"/>
+                <label for="">Giá thuốc: </label>
+                <input type="text" class="form-control form-value" name="price" id="price"/>
             </div>
             <button id ="btn-add" class="btn-button btn-custom">Thêm</button>
             <button id ="btn-edit" class="btn-button btn-custom">Sửa</button>
@@ -33,8 +33,8 @@
                 <tr>
                     <th>Stt</th>
                     <th>Id</th>
-                    <th>Section</td>
-                    <th>Value</th>
+                    <th>Tên thuốc</td>
+                    <th>Giá thuốc</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -42,11 +42,11 @@
             <tbody>
                 @foreach($data['data'] as $key => $item)
               
-                <tr data-id="{{$item['id']}}">
+                <tr data-id="{{$item['medicines_id']}}">
                     <td class="stt">{{$item['no']}}</td>
-                    <td class="" >{{$item['id']}}</td>
-                    <td class="row_data" data-colum="section" val="{{$item['library_section']}}" contenteditable>{{$item['library_section']}}</td>
-                    <td class="row_data" data-colum="value"   val="{{$item['library_value']}}" contenteditable>{{$item['library_value']}}</td>
+                    <td class="" >{{$item['medicines_id']}}</td>
+                    <td class="row_data" data-colum="medicines" val="{{$item['medicines_nm']}}" contenteditable>{{$item['medicines_nm']}}</td>
+                    <td class="row_data" data-colum="price"   val="{{$item['medicines_price']}}" contenteditable>{{$item['medicines_price']}}</td>
                     <td class="edit">sửa</td>
                     <td class="delete">xóa</td>
                 </tr>

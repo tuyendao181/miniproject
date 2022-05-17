@@ -720,3 +720,21 @@ span.text-money {
 .bootbox .modal-content{
     margin: auto;
 }
+.nav-paginate{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.select-paginate{
+    width: 5%;
+}
+.dots {
+    font-weight: 600;
+    font-size: 21px;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #333333;
+    background-color: #f2f0e6;
+    border-color: #007bff;
+}

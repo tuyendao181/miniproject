@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
-class AuthRequest extends FormRequest
+class ServiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,15 +28,17 @@ class AuthRequest extends FormRequest
      */
     public function rules(){
         return [
-            'email'       => 'required',
-            'password'    => 'required',
+            'id'              => 'required',
+            'service'           => 'required',
+            'price'           => 'required|numeric',
         ];
     }
     public function messages(){
         return [
-            'email.required'       => '1',
-            'password.required'    => '1',
-
+            'id.required'           => '1',
+            'service.required'      => '1',
+            'price.required'        => '1',
+            'price.numeric'         => '3',
         ];
     }
     protected function failedValidation(Validator $validator)

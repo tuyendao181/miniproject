@@ -18,7 +18,7 @@
 <body>
     <div id="login">
         <form name='form-login'>
-            <input type="text" id="user" placeholder="Username">
+            <input type="text" id="email" placeholder="Email">
             <input type="password" id = "password" placeholder="Password">
             <!-- <input type="submit" value="Login" id="login"> -->
             <button type="submit" value="Login" id="sub_login">Login</button>

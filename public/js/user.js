@@ -56,28 +56,11 @@ function initEvents() {
                      contentType: false,
                      processData: false,
                     beforeSend: function() {
-                        $('#name_category').val('');
-                        $('#name_category').focus();
-                        $('#tl_avatar').val('');
-                        $('#thumbnil').attr('src','');
-                        $(document).find('span.error-text').text('');
+                      
                     },
                     success: function(data){
                         console.log(data);
-                        if(data.status == 0){
-                          $.each(data.err, function( key, value ) {
-                              $('span.'+key+'_error').text(value);
-                          });
-                        }
-                        else{
-                          $('#tb_list').html(data);
-                          toast({
-                            title: "Success!",
-                            message: "You have successfully added",
-                            type: "success",
-                            duration: 5000
-                          });
-                        }
+                    
                     }
                 });
           

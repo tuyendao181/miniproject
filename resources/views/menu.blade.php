@@ -28,9 +28,9 @@
                         <input type="checkbox" class="sub-menu-checkbox" id="settings" />
                         <ul class="sub-menu-dropdown">
                             <li><a href="">Danh sách bác sĩ</a></li>
-                            <li><a href="">Danh sách thuốc</a></li>
-                            <li><a href="">Danh sách library</a></li>
-                            <li><a href="">Danh sách dịch vụ</a></li>
+                            <li><a href="{{route('getMedicines')}}">Danh sách thuốc</a></li>
+                            <li><a href="{{route('getLibrary')}}">Danh sách library</a></li>
+                            <li><a href="{{route('getService')}}">Danh sách dịch vụ</a></li>
                             <li><a href="">Danh sách user</a></li>
                         </ul>
                     </li>
