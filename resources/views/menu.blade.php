@@ -15,9 +15,10 @@
                         </label>
                         <input type="checkbox" class="sub-menu-checkbox" id="setting" />
                         <ul class="sub-menu-dropdown">
-                            <li class="click-list"><a href="">Danh sách bệnh nhân</a></li>
-                            <li class="click-list"><a href="">Khám bệnh</a></li>
-                            <li class="click-list"><a href="">Lịch sử khám bệnh</a></li>
+                            <li class="click-list"><a href="{{route('getPatient')}}">Danh sách bệnh nhân</a></li>
+                            <li class="click-list"><a href="{{route('Health')}}">Khám bệnh</a></li>
+                            <li class="click-list"><a href="{{route('getHistory')}}">Lịch sử khám bệnh</a></li>
+                            <li class="click-list"><a href="{{route('listMail')}}">Gửi mail tái khám</a></li>
                         </ul>
                     </li>
                     <li class="menu-hasdropdown">
@@ -27,12 +28,15 @@
                         </label>
                         <input type="checkbox" class="sub-menu-checkbox" id="settings" />
                         <ul class="sub-menu-dropdown">
-                            <li><a href="">Danh sách bác sĩ</a></li>
+                            <li><a href="{{route('getDoctor')}}">Danh sách bác sĩ</a></li>
                             <li><a href="{{route('getMedicines')}}">Danh sách thuốc</a></li>
                             <li><a href="{{route('getLibrary')}}">Danh sách library</a></li>
                             <li><a href="{{route('getService')}}">Danh sách dịch vụ</a></li>
-                            <li><a href="">Danh sách user</a></li>
+                            <li><a href="{{route('listUser')}}">Danh sách user</a></li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="{{route('logout')}}">Đăng suất</a>
                     </li>
                 </ul>
             </div>

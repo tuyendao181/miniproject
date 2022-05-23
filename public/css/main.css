@@ -218,10 +218,10 @@ input#menu[type="checkbox"] {
 .openNav .menu:hover {
     position: absolute;
     left: -200px;
-    top 73px;
+   
 }
 .openNav .menu {
-    top 73px;
+  
     transform: translate3d(200px, 0, 0);
     transition: transform .45s cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -565,6 +565,7 @@ h4,
 .form-group{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 .form-control{
     padding: 0.2rem 0.3rem;
@@ -727,6 +728,7 @@ span.text-money {
 }
 .select-paginate{
     width: 5%;
+    min-width: 52px;
 }
 .dots {
     font-weight: 600;
@@ -737,4 +739,23 @@ span.text-money {
     color: #333333;
     background-color: #f2f0e6;
     border-color: #007bff;
+}
+.title-edit{
+    display: none;
+}
+#btn-edit{
+    display: none;   
+}
+.btn-button:disabled{
+    opacity: 0.5;
+}
+a {
+    color: #333333;
+}
+.img_user{
+    width: 70px;
+    object-fit: cover;
+}
+#tl-search{
+    width: 40%;
 }

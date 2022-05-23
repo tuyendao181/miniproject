@@ -32,7 +32,7 @@
             <thead>
                 <tr>
                     <th>Stt</th>
-                    <th>Id</th>
+                    <th>Mã thuốc</th>
                     <th>Tên thuốc</td>
                     <th>Giá thuốc</th>
                     <th></th>

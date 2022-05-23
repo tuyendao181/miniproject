@@ -44,45 +44,35 @@ function initialize() {
  */
 function initEvents() {
     try {
-        //event add
-        $(document).on('click', '#sub_login', function (e) {
+      
+        // change limit
+        $(document).on('click','#btn-send', function (e) {
             try {
                 e.preventDefault();
-                clearErrors();
-                let data = {};
-                data.email=$('#email').val();
-                data.password=$('#password').val();
-                console.log(data);
-                 //call function ajax_Add
-                 ajax_Add(data);
+                $.ajax({
+                    type: 'get',
+                    url:  '/send-mail',
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        switch (res['status']) {
+                            case OK:
+                                jMessage(12,function(r){
+                                    location.reload();
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+
             } catch (e) {
-                alert('#login: ' + e.message);
+                alert('#btn-send' + e.message);
             }
         });
-
+        
     } catch (e) {
         alert('initEvents: ' + e.message);
     }
 }
-
-/*
- * function ajax_Add
- * @author    : tuyen – tuyendn@ans-asia.com - create
- * @author    :
- * @return    : null
- * @access    : public
- * @see       : init
- */
-function ajax_Add(data){
-    $.ajax({
-        type: 'get',
-        url:  '/post-login',
-        dataType: 'json',
-        data:data,
-        success: function (res) {
-            console.log(res);
-            window.location.href = '/';
-        }
-    });
-}
-

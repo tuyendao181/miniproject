@@ -1,54 +1,57 @@
 @extends('master')
+@section('asset_footer')
+<script src="js/health.js"></script>
+@endsection
 @section('content')
 
 <div class="row">
     <div class="form-groupk col-4">
         <label for="">Bệnh nhân: </label>
-        <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+        <input type="search" class="form-control" name="search" id="search" aria-describedby="helpId" placeholder="" />
     </div>
     <div class="col-12 info-customer">
         <h6>Thông tin khách hàng:</h6>
         <div class="row">
             <div class="form-group col-3">
                 <label class="label" for="">Mã BN: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="text" class="form-control" name="id_patient" id="id_patient" aria-describedby="helpId" placeholder="" disabled/>
             </div>
             <div class="form-group col-3">
                 <label class="label" for="">Địa chỉ: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="text" class="form-control" name="address_patient" id="address_patient" aria-describedby="helpId" placeholder=""disabled />
             </div>
             <div class="form-group col-3">
                 <label class="label" for="">Số điện thoại: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="text" class="form-control" name="phone_patient" id="phone_patient" aria-describedby="helpId" placeholder="" disabled/>
             </div>
             <div class="form-group col-3">
                 <label class="label" for="">CMND: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="text" class="form-control" name="cmnd_patient" id="cmnd_patient" aria-describedby="helpId" placeholder="" disabled/>
             </div>
             <div class="form-group col-3">
                 <label class="label" for="">Họ Và Tên: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="text" class="form-control" name="name_patient" id="name_patient" aria-describedby="helpId" placeholder="" disabled/>
             </div>
             <div class="form-group col-3">
-                <label class="label" for="">Nhóm máu: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <label class="label" for="">Nhóm máu:</label>
+                <select class="form-control" name="blood_patient" id="blood_patient" disabled>
+                    <option >-- Nhóm máu --</option>
+                </select>
             </div>
 
             <div class="form-group col-3">
                 <label class="label" for="">Giới tính:</label>
-                <select class="form-control" name="" id="">
-                    <option>-- Giới tính --</option>
-                    <option>Nam</option>
-                    <option>Nữ</option>
+                <select class="form-control" name="gender_patient" id="gender_patient" disabled>
+                    <option >-- Giới tính --</option>
                 </select>
             </div>
             <div class="form-group col-3">
                 <label class="label" for="">Email: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="text" class="form-control" name="email_patient" id="email_patient" aria-describedby="helpId" placeholder="" disabled/>
             </div>
             <div class="form-group col-3">
                 <label class="label" for="">Ngày sinh: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="date" class="form-control" name="bird_patient" id="bird_patient" aria-describedby="helpId" placeholder="" disabled/>
             </div>
         </div>
     </div>
@@ -57,19 +60,19 @@
         <div class="row">
             <div class="form-group col-3">
                 <label class="label" for="">Dịch vụ:</label>
-                <select class="form-control" name="" id="">
-                    <option>-- Dịch vụ --</option>
-                    <option>Nam</option>
-                    <option>Nữ</option>
+                <select class="form-control" name="service" id="service">
+                    <option value=" " data-id=" ">-- Dịch vụ --</option>
                 </select>
             </div>
             <div class="form-group col-3">
-                <label class="label" for="">Bác sĩ: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <label class="label" for="">Bác sĩ:</label>
+                <select class="form-control" name="doctor" id="doctor">
+                    <option value="" data-id=" ">-- Bác sĩ --</option>
+                </select>
             </div>
             <div class="form-group col-6">
                 <label class="label" for="">Chuẩn đoán: </label>
-                <input type="search" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="text" value=" " class="form-control" name="" id="diagnois" aria-describedby="helpId" placeholder="">
             </div>
         </div>
     </div>
@@ -86,19 +89,19 @@
     
                     </tr>
                 </thead>
-                <tbody id="test-body">
+                <tbody id="tl-body">
                     <tr id="row0">
-                        <td>
-                            <input name='from_value0' value='100' type='text' class='form-control' />
+                        <td class="medicines" >
+                            <input data-id="" name='medicines0'  class="medicine" type='text' class='form-control'/>
                         </td>
-                        <td>
-                            <input name='to_value0' value='500' type='number' class='form-control input-md' />
+                        <td class="qnt">
+                            <input name='qtn0' value='500' type='number' class='form-control input-md' />
                         </td>
-                        <td>
-                            <input name='to_value0' value='500' type='number' class='form-control input-md' />
+                        <td class="price">
+                            <input name='price0' class="price_medicines" type='text' class='form-control input-md' disabled/>
                         </td>
-                        <td>
-                            <input name='to_value0' value='500' type='text' class='form-control input-md' />
+                        <td class="use">
+                            <input name='use0'  type='text' class='form-control input-md' />
                         </td>
                         <td>
                             <input class='btn-button delete-row' type='button' value='Delete' style="margin-bottom:0" />
@@ -115,19 +118,24 @@
        <div class="wap_total">
            <div> 
                <span class="text-money">Tiền khám: </span> 
-               <span>12333 vnđ</span>
+               <span id="money_service" data-price='0'>0</span>
             </div>
            <div> 
-               <span class="text-money">Tổng tiền: </span> 
-               <span>12333 vnđ</span>
+               <span class="text-money" >Tiền thuốc: </span> 
+               <span id="money_medicine" data-price="0" >0</span>
             </div>
-           <div> 
+            <div> 
                <span class="text-money">Tổng tiền: </span> 
-               <span>12333 vnđ</span>
+               <span id="total_monney" data-price="0">0</span>
+            </div>
+            <div class="">
+                <label class="label" for="">Ngày tái khám: </label>
+                <input type="datetime-local" value=" " class="form-control" name="" id="time-re" aria-describedby="helpId" placeholder="">
             </div>
             <div class="btn_order">
-                <button  class='btn-button' >Lưu</button>
-                <button  class='btn-button' >Làm mới</button>
+                <button  class='btn-button' id="save">Lưu</button>
+                <button  class='btn-button' id="export" disabled><a href="{{route('healthPDF')}}">Xuất</a></button>
+                <button  class='btn-button' id="new_page">Làm mới</button>
             </div>
        </div>
     </div>

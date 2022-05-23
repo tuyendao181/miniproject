@@ -28,7 +28,7 @@
      },
  });
  listMess();
-console.log(_text);
+
  
 
 /*
@@ -104,4 +104,6 @@ function listMess() {
          alert('setError: ' + e.message);
      }
  }
+
  
+

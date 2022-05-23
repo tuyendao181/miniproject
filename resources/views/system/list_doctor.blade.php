@@ -1,6 +1,6 @@
 @extends('master')
 @section('asset_footer')
-<script src="js/patient.js"></script>
+<script src="js/doctor.js"></script>
 @endsection
 @section('content')
 
@@ -15,7 +15,7 @@
     </button>
 </div>
 
-@include('ex_health.add_patient')
+@include('system.add_doctor')
 <input type="hidden" id="userId" name="userId" value="{{$data['user_id']}}">
 <div class="col-12 tl-table">
     <table class="rtable">
@@ -27,10 +27,8 @@
                   <th>Ngày sinh</th>
                   <th>Địa chỉ</th>
                   <th>Giới tính</th>
-                  <th>Nhóm máu</th>
                   <th>Số điện thoại</th>
-                  <th>Email</th>
-                  <th>Cmnd</th>
+                  <th>email</th>
                   <th></th>
                   <th></th>
     
@@ -38,29 +36,21 @@
           </thead>
           <tbody>
           @foreach($data['data'] as $key => $item)
-                  <tr data-id="{{$item['patient_id']}}">
+                  <tr data-id="{{$item['doctor_id']}}">
                       <td class="stt">{{$item['no']}}</td>
-                      <td class="" >{{$item['patient_id']}}</td>
-                      <td class="row_data" data-colum="name"    val="{{$item['patient_nm']}}"      contenteditable>{{$item['patient_nm']}}</td>
-                      <td class="row_data" data-colum="birthday"val="{{$item['patient_birthday']}}"contenteditable>{{$item['patient_birthday']}}</td>
-                      <td class="row_data" data-colum="address" val="{{$item['patient_address']}}" contenteditable>{{$item['patient_address']}}</td>
-                      <td class="gender"   data-colum="gender"  val="{{$item['patient_gender']}}" >
-                            <select class="select-gender select_change" name="" id="">
+                      <td class="" >{{$item['doctor_id']}}</td>
+                      <td class="row_data" data-colum="name"    val="{{$item['doctor_nm']}}"      contenteditable>{{$item['doctor_nm']}}</td>
+                      <td class="row_data" data-colum="birthday"val="{{$item['doctor_birthday']}}"contenteditable>{{$item['doctor_birthday']}}</td>
+                      <td class="row_data" data-colum="address" val="{{$item['doctor_address']}}" contenteditable>{{$item['doctor_address']}}</td>
+                      <td class="gender"   data-colum="gender"  val="{{$item['doctor_gender']}}" >
+                            <select class="select-gender" name="" id="">
                             @foreach($data['gender'][0] as $key => $gender)
-                                <option  @if( $gender['library_id'] == $item['patient_gender'] ) selected @endif  class="option_{{$gender['library_id']}}" value="{{$gender['library_id']}}">{{$gender['library_value']}}</option>
+                                <option  @if( $gender['library_id'] == $item['doctor_gender'] ) selected @endif  class="option_{{$gender['library_id']}}" value="{{$gender['library_id']}}">{{$gender['library_value']}}</option>
                             @endforeach
                             </select>
                       </td>
-                      <td class="gender"   data-colum="gender"  val="{{$item['patient_blood_type']}}" >
-                            <select class="select-blood select_change" name="" id="">
-                            @foreach($data['blood_type'][0] as $key => $gender)
-                                <option  @if( $gender['library_id'] == $item['patient_blood_type'] ) selected @endif  class="option_{{$gender['library_id']}}" value="{{$gender['library_id']}}">{{$gender['library_value']}}</option>
-                            @endforeach
-                            </select>
-                      </td>
-                      <td class="row_data" data-colum="phone"   val="{{$item['patient_phone']}}" contenteditable>{{$item['patient_phone']}}</td>
-                      <td class="row_data" data-colum="email"   val="{{$item['patient_email']}}" contenteditable>{{$item['patient_email']}}</td>
-                      <td class="row_data" data-colum="cmnd"   val="{{$item['patient_cmnd']}}" contenteditable>{{$item['patient_cmnd']}}</td>
+                      <td class="row_data" data-colum="phone"   val="{{$item['doctor_phone']}}" contenteditable>{{$item['doctor_phone']}}</td>
+                      <td class="row_data" data-colum="email"   val="{{$item['doctor_email']}}" contenteditable>{{$item['doctor_email']}}</td>
                       <td class="edit" data-toggle="modal" data-target="#modelId">sửa</td>
                       <td class="delete">xóa</td>
                   </tr>

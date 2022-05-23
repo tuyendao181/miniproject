@@ -28,31 +28,33 @@
         </div>
     </div>
     <div class="col-12 tl-table">
-        <table class="rtable">
-            <thead>
-                <tr>
-                    <th>Stt</th>
-                    <th>Id</th>
-                    <th>Section</td>
-                    <th>Value</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($data['data'] as $key => $item)
-              
-                <tr data-id="{{$item['id']}}">
-                    <td class="stt">{{$item['no']}}</td>
-                    <td class="" >{{$item['id']}}</td>
-                    <td class="row_data" data-colum="section" val="{{$item['library_section']}}" contenteditable>{{$item['library_section']}}</td>
-                    <td class="row_data" data-colum="value"   val="{{$item['library_value']}}" contenteditable>{{$item['library_value']}}</td>
-                    <td class="edit">sửa</td>
-                    <td class="delete">xóa</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="div">
+            <table class="rtable">
+                <thead>
+                    <tr>
+                        <th>Stt</th>
+                        <th>Id</th>
+                        <th>Section</td>
+                        <th>Value</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['data'] as $key => $item)
+            
+                    <tr data-id="{{$item['id']}}">
+                        <td class="stt">{{$item['no']}}</td>
+                        <td class="" >{{$item['id']}}</td>
+                        <td class="row_data" data-colum="section" val="{{$item['library_section']}}" contenteditable>{{$item['library_section']}}</td>
+                        <td class="row_data" data-colum="value"   val="{{$item['library_value']}}" contenteditable>{{$item['library_value']}}</td>
+                        <td class="edit">sửa</td>
+                        <td class="delete">xóa</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
         <nav aria-label="Page navigation" class="nav-paginate">
               <select class="form-control select-paginate" name="" id="">

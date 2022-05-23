@@ -1,6 +1,6 @@
 @extends('master')
-@section('asset_header')
-<link rel="stylesheet" href="css/list-patient.css">
+@section('asset_footer')
+<script src="js/history.js"></script>
 @endsection
 @section('content')
 
@@ -8,59 +8,91 @@
 
 
 @include('ex_health.history_detail')
-
-<table class="rtable">
-      <thead>
-          <tr >
-              <th>Browser</th>
-              <th>Sessions</th>
-              <th>Percentage</td>
-              <th>Avg. Duration</th>
-              <th>Avg. Duration</th>
-              <th></th>
-              <th></th>
-             
-          </tr>
-      </thead>
-      <tbody>
-      
-          <tr id="1" data-id="1">
-              <td class="row_data"  data-colum="name_1">fgf</td>
-              <td class="row_data"  data-colum="name_2">68.81%</td>
-              <td class="row_data"  data-colum="name_3">7,895</td>
-              <td class="row_data"  data-colum="name_4">68.81%</td>
-              <td class="row_data"  data-colum="name_5">01:07</td>
-              <td class="edit" >sửa</td>
-              <td class="delete">xóa</td>
-          </tr>
-          <tr id="2" data-id="2">
-              <td class="row_data" data-colum="name_1">Firefox</td>
-              <td class="row_data" data-colum="name_2">2,403</td>
-              <td class="row_data" data-colum="name_3">17.29%</td>
-              <td class="row_data" data-colum="name_4">2,046</td>
-              <td class="row_data" data-colum="name_5">00:59</td>
-              <td class="edit" data-toggle="modal" data-target="#modelId" >chi tiết</td>
-              <td class="delete">xóa</td>
-          </tr>
-          <tr id="3" data-id="3">
-              <td class="row_data">Safari</td>
-              <td class="row_data">1,089</td>
-              <td class="row_data">2.63%</td>
-              <td class="row_data">904</td>
-              <td class="row_data">00:59</td>
-              <td class="edit" >sửa</td>
-              <td class="delete">xóa</td>
-          </tr>
-          <tr id="4" data-id="4">
-              <td class="row_data">Internet Explorer</td>
-              <td class="row_data">366</td>
-              <td class="row_data">2.63%</td>
-              <td class="row_data">333</td>
-              <td class="row_data">01:01</td>
-              <td class="edit" >sửa</td>
-              <td class="delete">xóa</td>
-          </tr> 
-        
-      </tbody>
- </table>
+    <div class="col-12">
+        <input id="tl-search" type="serach" placeholder="Tìm kiếm số cmnd"/>
+    </div>
+    <div class="col-12 tl-table">
+        <table class="rtable">
+          <thead>
+              <tr >
+                  <th>STT</th>
+                  <th>Mã bệnh nhân</th>
+                  <th>Họ tên</th>
+                  <th>Ngày sinh</th>
+                  <th>Cmnd</th>
+                  <th>Số điện thoại </td>
+                  <th>Bác sĩ</th>
+                  <th>Tổng tiền</th>
+                  <th>Ngày Khám</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+                @foreach($data['data'] as $key => $item)
+                      <tr data-id="{{$item['diagnosis_id']}}">
+                          <td class="stt">{{$item['no']}}</td>
+                          <td class="" >{{$item['patient_id']}}</td>
+                          <td class="row_data" >{{$item['patient_nm']}}</td>
+                          <td class="row_data" >{{$item['patient_birthday']}}</td>
+                          <td class="row_data" >{{$item['patient_cmnd']}}</td>
+                          <td class="row_data" >{{$item['patient_phone']}}</td>
+                          <td class="row_data">{{$item['doctor_nm']}}</td>
+                          <td class="row_data">{{$item['total']}}</td>
+                          <td class="row_data" >{{$item['cre_date']}}</td>
+                          <td class="edit" data-toggle="modal" data-target="#modelId">Chi Tiết</td>
+                      </tr>
+                @endforeach
+          </tbody>
+        </table>
+        <nav aria-label="Page navigation" class="nav-paginate">
+                <select class="form-control select-paginate" name="" id="">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>15</option>
+                </select>
+              <ul class="pagination justify-content-center">
+                  <!-- Previous -->
+                  @if($data['paginate']['curent'] > 1 && $data['paginate']['total'] > 1)
+                  <li class="page-item">
+                      <a class="page-link page-btn " href="#" aria-label="Previous" id="pre_page" data-curennt="{{$data['paginate']['curent'] - 1}}"
+                          data-url="">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">Previous</span>
+                      </a>
+                  </li>
+                  @endif
+                  @if($data['paginate']['curent'] > 2 )
+                  <li class="page-item num_page number_curennt_1" data-curennt="1" data-url=""><a
+                          class="page-link" href="#">1</a></li>
+                  @if($data['paginate']['curent'] > 3)
+                  <div class="dots">...</div>
+                  @endif
+                  @endif
+                  @for($i = $data['paginate']['before'] ;$i <= $data['paginate']['after'] ;$i++)
+                      @if($i > $data['paginate']['total'])
+                          @continue
+                      @endif
+                      @if($i != 0)
+                      <li class="page-item num_page number_curennt_{{$i}} @if( $data['paginate']['curent'] == $i) active @endif "
+                          data-curennt="{{$i}}" data-url=""><a class="page-link" href="#">{{$i}}</a></li>
+                      @endif
+                  @endfor
+                  @if($data['paginate']['curent'] < $data['paginate']['total'] - 1 )
+                      @if($data['paginate']['curent'] < $data['paginate']['total'] - 2 )
+                          <div class="dots">...</div>
+                      @endif
+                          <li class="page-item num_page number_curennt_1" data-curennt="{{$data['paginate']['total']}}" data-url=""><a class="page-link" href="#">{{$data['paginate']['total']}}</a></li>
+                  @endif
+                   @if($data['paginate']['curent'] < $data['paginate']['total'] && $data['paginate']['total']> 1)
+                       <li class="page-item">
+                           <a class="page-link  page-btn" href="#" aria-label="Next" id="next_page" class="page-btn"
+                               data-curennt="{{$data['paginate']['curent'] + 1}}" data-url="">
+                               <span aria-hidden="true">&raquo;</span>
+                               <span class="sr-only">Next</span>
+                           </a>
+                       </li>
+                   @endif
+              </ul>
+        </nav>
+    </div>
 @endsection

@@ -9,10 +9,6 @@
     <button type="button" class="btn-button" data-toggle="modal" data-target="#modelId">
         Thêm
     </button>
-    
-    <button type="button" class="btn-button">
-        Lưu
-    </button>
 </div>
 
 @include('system.add_user')
@@ -20,54 +16,37 @@
 <table class="rtable">
       <thead>
           <tr >
-              <th>Browser</th>
-              <th>Sessions</th>
-              <th>Percentage</td>
-              <th>Avg. Duration</th>
-              <th>Avg. Duration</th>
+              <th>Stt</th>
+              <th>Id</th>
+              <th>Avatar</td>
+              <th>Tên</th>
+              <th>Ngày sinh</th>
+              <th>Giới tính</th>
+              <th>Số điện thoại</th>
+              <th>Email</th>
+              <th>Địa chỉ</th>
               <th></th>
               <th></th>
              
           </tr>
       </thead>
       <tbody>
-      
-          <tr id="1" data-id="1">
-              <td class="row_data"  data-colum="name_1">fgf</td>
-              <td class="row_data"  data-colum="name_2">68.81%</td>
-              <td class="row_data"  data-colum="name_3">7,895</td>
-              <td class="row_data"  data-colum="name_4">68.81%</td>
-              <td class="row_data"  data-colum="name_5">01:07</td>
-              <td class="edit" >sửa</td>
+        @foreach($result['data'][0] as $item)
+          <tr  data-id="{{$item['user_id']}}" data-user={{$result['user_id']}}>
+              <td class="row_data" >{{$item['stt']}}</td>
+              <td class="row_data" >{{$item['user_id']}}</td>
+              <td class="row_data" > <img class="img_user" src="{{url('/uploads/')}}/{{$item['user_avatar']}}" alt=""></td>
+              <td class="row_data" >{{$item['user_nm']}}</td>
+              <td class="row_data" >{{$item['user_birthday']}}</td>
+              <td class="row_data" >@if($item['user_gender'] == 1) Nữ @else Nam  @endif</td>
+              <td class="row_data" >{{$item['user_phone']}}</td>
+              <td class="row_data" >{{$item['user_email']}}</td>
+              <td class="row_data" >{{$item['user_address']}}</td>
+              <td class="edit" data-toggle="modal" data-target="#modelId">sửa</td>
               <td class="delete">xóa</td>
           </tr>
-          <tr id="2" data-id="2">
-              <td class="row_data" data-colum="name_1">Firefox</td>
-              <td class="row_data" data-colum="name_2">2,403</td>
-              <td class="row_data" data-colum="name_3">17.29%</td>
-              <td class="row_data" data-colum="name_4">2,046</td>
-              <td class="row_data" data-colum="name_5">00:59</td>
-              <td class="edit" >sửa</td>
-              <td class="delete">xóa</td>
-          </tr>
-          <tr id="3" data-id="3">
-              <td class="row_data">Safari</td>
-              <td class="row_data">1,089</td>
-              <td class="row_data">2.63%</td>
-              <td class="row_data">904</td>
-              <td class="row_data">00:59</td>
-              <td class="edit" >sửa</td>
-              <td class="delete">xóa</td>
-          </tr>
-          <tr id="4" data-id="4">
-              <td class="row_data">Internet Explorer</td>
-              <td class="row_data">366</td>
-              <td class="row_data">2.63%</td>
-              <td class="row_data">333</td>
-              <td class="row_data">01:01</td>
-              <td class="edit" >sửa</td>
-              <td class="delete">xóa</td>
-          </tr> 
+        @endforeach
+       
         
       </tbody>
  </table>
