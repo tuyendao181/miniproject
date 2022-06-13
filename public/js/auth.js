@@ -80,8 +80,19 @@ function ajax_Add(data){
         dataType: 'json',
         data:data,
         success: function (res) {
-            console.log(res);
-            window.location.href = '/';
+            switch (res['status']) {
+                case OK:
+                    window.location.href = '/';
+                    break;
+                case NG:
+                    setErrors(res['errors'])
+                    break;
+                case EX:
+                    jError('Exception','202 Exception');
+                    break;
+                default:
+                    break;
+            }
         }
     });
 }

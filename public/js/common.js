@@ -21,15 +21,13 @@
  var ULF = 405;       // status Upload File False
  var PE  = 999;		  // Not permission
  var obj = {};        // data object json
- var _text ={};
+//  var _text ={};
  jQuery.ajaxSetup({
      headers: {
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
      },
  });
- listMess();
-
- 
+//  listMess();
 
 /*
   * list mess
@@ -39,24 +37,22 @@
   * @access    : public
   * @see       : init
   */
-function listMess() {
-    try {
-        $.ajax({
-            type: 'get',
-            url:  '/get-mess',
-            dataType: 'json',
-            success: function (res) {
-                _text = res.data;
-            },
-            async: false
-        });
-    } catch (e) {
-        alert('listMess: ' + e.message);
-    }
-}
+// function listMess() {
+//     try {
+//         $.ajax({
+//             type: 'get',
+//             url:  '/get-mess',
+//             dataType: 'json',
+//             success: function (res) {
+//                 _text = res.data;
+//             },
+//             async: false
+//         });
+//     } catch (e) {
+//         alert('listMess: ' + e.message);
+//     }
+// }
 
-
- 
  /*
   * setErrors
   * @author    : 
@@ -67,27 +63,44 @@ function listMess() {
   */
  function setErrors(error) {
      try {
+        //  console.log(error);
+        var arrs="";
+        var array = [];
         $.each(error, function( index, value ) {
-
-            $('#' +index).addClass('boder-error');
-            $('#' +index).after( `<div class="text-danger">** ${_text[value].message}</div>` );
+          
+            if(value.value1 == '' || value.value1 == 0){
+                if(value.error_typ == 1){
+                    $('#' +value.item).addClass('boder-error');
+                    $('#' +value.item).after( `<div class="tooltip_error">** ${_text[value.message_no].message}</div>` );
+                }
+                else if(value.error_typ == 2){
+                    if($.inArray(value.item,array) == -1){
+                        arrs += `<div class="" font-weight: 600">**${value.item} ${_text[value.message_no].message}</style></div>` ;
+                        jError('Error',arrs);
+                        array.push(value.item);
+                    }
+                }
+            }else{
+                var id = value.value1;
+                var tr = $('tr[data-id='+id+']');
+                if(value.error_typ == 1){
+                    tr.find('.'+value.item).addClass('boder-error');
+                }
+                else if(value.error_typ == 2){
+                    tr.find('.'+value.item).addClass('boder-error');
+                    if($.inArray(value.item,array) == -1){
+                        arrs += `<div class="" font-weight: 600">**${value.item} ${_text[value.message_no].message}</style></div>` ;
+                        jError('Error',arrs);
+                        array.push(value.item);
+                    }
+                }
+            }
         });
      } catch (e) {
          alert('setError: ' + e.message);
      }
  }
 
- function setErrors2(error) {
-    try {
-        var val="";
-       $.each(error, function( index, value ) {
-            val += `<div class="" font-weight: 600">**${index} ${_text[value].message}</style></div>` ;
-       });
-       jError('Error',val);
-    } catch (e) {
-        alert('setError: ' + e.message);
-    }
-}
  /*
   * clearErrors
   * @author    : 
@@ -99,7 +112,7 @@ function listMess() {
  function clearErrors() {
      try {
          $(".boder-error").removeClass('boder-error');
-         $('.text-danger').remove();
+         $('.tooltip_error').remove();
      } catch (e) {
          alert('setError: ' + e.message);
      }

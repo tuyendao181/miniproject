@@ -15,9 +15,9 @@
         <tr data-id="{{$item['id']}}">
             <td class="stt">{{$item['no']}}</td>
             <td class="">{{$item['id']}}</td>
-            <td class="row_data" data-colum="section" val="{{$item['library_section']}}" contenteditable>
+            <td class="row_data section" data-colum="section" val="{{$item['library_section']}}" contenteditable>
                 {{$item['library_section']}}</td>
-            <td class="row_data" data-colum="value" val="{{$item['library_value']}}" contenteditable>
+            <td class="row_data value" data-colum="value" val="{{$item['library_value']}}" contenteditable>
                 {{$item['library_value']}}</td>
             <td class="edit">sửa</td>
             <td class="delete">xóa</td>

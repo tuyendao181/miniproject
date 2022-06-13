@@ -46,8 +46,6 @@
               <td class="delete">xóa</td>
           </tr>
         @endforeach
-       
-        
       </tbody>
  </table>
 @endsection

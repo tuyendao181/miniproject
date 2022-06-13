@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\MedicinesRequest;
 class MedicinesController extends Controller
 {
+    /*
+     * function getMedicines -- list data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function getMedicines(Request $request){
        
         $user = Session::get('user');
@@ -15,7 +24,16 @@ class MedicinesController extends Controller
         $data = array_merge($this->paginateMedicines($request),$data);
         return view('system.list_medicines',compact('data'));
     }
-    //paginate
+    
+    /*
+     * function paginateMedicines -- paginate
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function paginateMedicines(Request $request){
         if(empty($request->curent)){
             $params['curent'] = 1;
@@ -40,7 +58,16 @@ class MedicinesController extends Controller
         }
        
     }
-    // refer data edit 
+ 
+    /*
+     * function listMail --  refer data edit
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function geditMedicines(Request $request ){
         try{   
             $param['id'] = $request->id;
@@ -52,7 +79,15 @@ class MedicinesController extends Controller
         }
         return response()->json($this->respon);
     }
-    // add data
+    /*
+     * function postMedicines -- add data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function postMedicines(MedicinesRequest $request){
         try {   
 
@@ -68,12 +103,8 @@ class MedicinesController extends Controller
             }else if(isset($result[0]) && !empty($result[0])){
                 $this->respon['status']     = NG;
                 foreach ($result[0] as $temp) {
-                   array_push($kq, $temp);
+                    array_push($this->respon['errors'], $temp);
                 }
-                foreach ( $kq as $vla) {
-                   //one key one mess
-                   $this->respon['errors'][$vla['item']][0]=$kq[0]['message_no'];
-                } 
             }
         } catch(\Exception $e) {
             $this->respon['status']     = EX;
@@ -82,30 +113,55 @@ class MedicinesController extends Controller
 
         return response()->json($this->respon);
     }
-    //save data
+    /*
+     * function putMedicines -- delete edit data json
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function putMedicines(Request $request){
         try { 
             $kq=[];
             $data['data'] = json_decode($request->myArray, true);
-            $mess =  [
-                'data.*.medicines.required' => '1',
-                'data.*.price.required'     => '1',
-                'data.*.price.numeric'      => '3',
-                'data.*.id.required'        => '1',
-            ];
+
+            $mess=[];
+            // dd($data['data']);
+            foreach($data['data'] as $key => $value){
+                $id = $value['id'];
+               
+                foreach($value as $k => $item){
+                    if($k == 'price'){
+                        $mess["data.$key.$k.required"] = ["$id",'1'] ;
+                        $mess["data.$key.$k.numeric"]  = ["$id",'3'] ;
+                    }else{
+                        $mess["data.$key.$k.required"] = ["$id",'1'] ;
+                    }
+                   
+                }
+            }
             $validator = Validator::make($data, [
                 'data.*.medicines'         => 'required',
-                'data.*.price'             => 'required',
-                'data.*.price'             => 'numeric',
+                'data.*.price'             => 'required|numeric',
                 'data.*.id'                => 'required',
             ],$mess);
            
             if ($validator->fails()) {
-             
                 $this->respon['status'] = NG;
                 $error = $validator -> errors()->toArray(); 
-                foreach($error as $key => $vla){
-                    $this->respon['errors'][substr($key,7)]=$vla[0];
+               
+                //one 1 value
+                foreach($error as $key => $item){
+                    $index = strpos($key,".") + 3;  //find
+                    $temp = [
+                        'item'       =>substr($key,$index), //trim
+                        'message_no' => $item[0][1],// key one mess
+                        'error_typ'  => 2,
+                        'value1'     => $item[0][0]  //position row
+                    ];
+                    array_push($this->respon['errors'], $temp);  
                 }
             }else{
                 $param = $request->all();
@@ -116,12 +172,8 @@ class MedicinesController extends Controller
                 }else if(isset($result[0]) && !empty($result[0])){
                     $this->respon['status']     = NG;
                     foreach ($result[0] as $temp) {
-                       array_push($kq,$temp);
+                        array_push($this->respon['errors'], $temp);
                     }
-                    foreach ( $kq as $vla) {
-                       //one key one mess
-                       $this->respon['errors'][$vla['item']][0]=$kq[0]['message_no'];
-                    } 
                 }
             }
            
@@ -131,7 +183,15 @@ class MedicinesController extends Controller
          }
           return response()->json($this->respon);
     }
-    //edit one data
+    /*
+     * function patchMedicines -- edit one data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function patchMedicines(MedicinesRequest $request){
         try {
 
@@ -147,12 +207,8 @@ class MedicinesController extends Controller
             }else if(isset($result[0]) && !empty($result[0])){
                 $this->respon['status']     = NG;
                 foreach ($result[0] as $temp) {
-                   array_push($kq, $temp);
+                    array_push($this->respon['errors'], $temp);
                 }
-                foreach ( $kq as $vla) {
-                   //one key one mess
-                   $this->respon['errors'][$vla['item']][0]=$kq[0]['message_no'];
-                } 
             }
         } catch(\Exception $e) {
             $this->respon['status']     = EX;

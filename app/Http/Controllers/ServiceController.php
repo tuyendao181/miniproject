@@ -9,13 +9,30 @@ use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
+    /*
+     * function getService -- list data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function getService(Request $request){
         $user = Session::get('user');
         $data['user_id']= $user['user_id'];
         $data = array_merge($this->paginateService($request),$data);
         return view('system.list_service',compact('data'));
     }
-    //paginate
+    /*
+     * function paginateService -- paginate
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function paginateService(Request $request){
         if(empty($request->curent)){
             $params['curent'] = 1;
@@ -40,7 +57,15 @@ class ServiceController extends Controller
         }
        
     }
-    // refer data edit 
+    /*
+     * function geditService -- refer data edit
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+     
     public function geditService(Request $request ){
         try{   
             $param['id'] = $request->id;
@@ -52,7 +77,15 @@ class ServiceController extends Controller
         }
         return response()->json($this->respon);
     }
-    // add data
+    /*
+     * function postService -- add data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function postService(ServiceRequest $request){
         try {   
             $kq=[];
@@ -67,12 +100,8 @@ class ServiceController extends Controller
             }else if(isset($result[0]) && !empty($result[0])){
                 $this->respon['status']     = NG;
                 foreach ($result[0] as $temp) {
-                   array_push($kq, $temp);
+                    array_push($this->respon['errors'], $temp);
                 }
-                foreach ( $kq as $vla) {
-                   //one key one mess
-                   $this->respon['errors'][$vla['item']][0]=$kq[0]['message_no'];
-                } 
             }
         } catch(\Exception $e) {
             $this->respon['status']     = EX;
@@ -81,17 +110,32 @@ class ServiceController extends Controller
 
         return response()->json($this->respon);
     }
-    //save data
+    /*
+     * function putService -- delete edit data json
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function putService(Request $request){
         try { 
             $kq=[];
             $data['data'] = json_decode($request->myArray, true);
-            $mess =  [
-                'data.*.name.required'  => '1',
-                'data.*.price.required' => '1',
-                'data.*.price.numeric'  => '3',
-                'data.*.id.required'    => '1',
-            ];
+            $mess=[];
+            // dd($data['data']);
+            foreach($data['data'] as $key => $value){
+                $id = $value['id'];
+                foreach($value as $k => $item){
+                    if($k == 'price'){
+                        $mess["data.$key.$k.numeric"] = ["$id",'3'];
+                        $mess["data.$key.$k.required"] = ["$id",'1'];
+                    }else{
+                        $mess["data.$key.$k.required"] = ["$id",'1'];
+                    }
+                }
+            }
             $validator = Validator::make($data, [
                 'data.*.name'         => 'required',
                 'data.*.price'        => 'required|numeric',
@@ -99,11 +143,19 @@ class ServiceController extends Controller
             ],$mess);
            
             if ($validator->fails()) {
-             
                 $this->respon['status'] = NG;
                 $error = $validator -> errors()->toArray(); 
-                foreach($error as $key => $vla){
-                    $this->respon['errors'][substr($key,7)]=$vla[0];
+               
+                //one 1 value
+                foreach($error as $key => $item){
+                    $index = strpos($key,".") + 3;  //find
+                    $temp = [
+                        'item'       =>substr($key,$index), //trim
+                        'message_no' => $item[0][1],// key one mess
+                        'error_typ'  => 2,
+                        'value1'     => $item[0][0]  //position row
+                    ];
+                    array_push($this->respon['errors'], $temp);  
                 }
             }else{
                 $param = $request->all();
@@ -114,12 +166,8 @@ class ServiceController extends Controller
                 }else if(isset($result[0]) && !empty($result[0])){
                     $this->respon['status']     = NG;
                     foreach ($result[0] as $temp) {
-                       array_push($kq,$temp);
+                        array_push($this->respon['errors'], $temp);
                     }
-                    foreach ( $kq as $vla) {
-                       //one key one mess
-                       $this->respon['errors'][$vla['item']][0]=$kq[0]['message_no'];
-                    } 
                 }
             }
            
@@ -129,7 +177,15 @@ class ServiceController extends Controller
          }
           return response()->json($this->respon);
     }
-    //edit one data
+    /*
+     * function patchService -- edit one data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function patchService(ServiceRequest $request){
         try {   
             $kq=[];
@@ -144,12 +200,8 @@ class ServiceController extends Controller
             }else if(isset($result[0]) && !empty($result[0])){
                 $this->respon['status']     = NG;
                 foreach ($result[0] as $temp) {
-                   array_push($kq, $temp);
+                    array_push($this->respon['errors'], $temp);
                 }
-                foreach ( $kq as $vla) {
-                   //one key one mess
-                   $this->respon['errors'][$vla['item']][0]=$kq[0]['message_no'];
-                } 
             }
         } catch(\Exception $e) {
             $this->respon['status']     = EX;

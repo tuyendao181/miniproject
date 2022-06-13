@@ -44,12 +44,17 @@ class MedicinesRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $respon['status'] = NG;
-        $respon['errors'] = (new ValidationException($validator))->errors();
-        foreach($respon['errors'] as $key => $vla){
-            // $mess[$key]=$vla[0];
-            $respon['errors'][$key]=$vla[0];
+        $respon['errors'] = [];
+        $error = (new ValidationException($validator))->errors();
+        foreach($error as $key => $item){
+            $temp = [
+                'item'       => $key,
+                'message_no' => $item[0],// key one mess
+                'error_typ'  => 1,
+                'value1'     => ''  //position row
+            ];
+            array_push($respon['errors'], $temp);  
         }
-        // $respon['errors']=$mess;
         throw new HttpResponseException(
             response()->json($respon,200)
         );

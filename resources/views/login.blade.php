@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/jmessages.css">
     <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
     @yield('asset_header')
@@ -24,7 +25,9 @@
             <button type="submit" value="Login" id="sub_login">Login</button>
           </form>
       </div>
-    
+      <script> 
+        var _text = {!! json_encode($text) !!} ;
+    </script>
     <!-- jQuery library -->
     <script src="js/jquery-3.6.0.min.js"></script>
     <!-- jQuery jquery-tabledit -->

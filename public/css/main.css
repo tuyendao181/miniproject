@@ -659,6 +659,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 .rtable th,
 .rtable td {
+    outline: none !important;
     padding: 6px 12px;
     border: 1px solid #d9d7ce;
 }
@@ -758,4 +759,34 @@ a {
 }
 #tl-search{
     width: 40%;
+}
+.boder-error{
+    border: 2px solid red !important;
+    position:relative;
+}
+
+.tooltip_error{
+    /* top:100%;
+	position: ; */
+	background: #d9d7ce;
+	color: red;
+	padding: 0.2rem 1rem;
+	border-radius: 10px;
+	border-top-left-radius: 0;
+	z-index: 300;
+	font-size: 12px;
+	line-height: 1.5rem;
+	border: 1px solid red;
+	box-shadow: 1px 2px 8px rgba(0,0,100,0.2);
+	opacity: 1;
+	transition-duration: 0.2s;
+}
+a[disabled] {
+    pointer-events: none;
+}
+td.edit {
+    background: #beffcd5c;
+}
+td.delete {
+    background: #19c465;
 }

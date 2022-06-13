@@ -9,6 +9,15 @@ use App\Http\Requests\PatientRequest;
 
 class PatientController extends Controller
 {
+    /*
+     * function getPatient -- list data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function getPatient(Request $request){
         $user = Session::get('user');
         $data['user_id']= $user['user_id'];
@@ -17,7 +26,15 @@ class PatientController extends Controller
         $data = array_merge($this->paginatePatient($request),$data);
         return view('ex_health.list_patient',compact('data'));
     }
-    //paginate
+    /*
+     * function paginatePatient -- paginate
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function paginatePatient(Request $request){
         if(empty($request->curent)){
             $params['curent'] = 1;
@@ -44,7 +61,15 @@ class PatientController extends Controller
         }
        
     }
-    // refer data edit 
+    /*
+     * function geditPatient -- refer data edit 
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function geditPatient(Request $request ){
         try{  
             $param['id'] = $request->id;
@@ -57,6 +82,15 @@ class PatientController extends Controller
         return response()->json($this->respon);
     }
     // add data
+    /*
+     * function putMedicines -- add data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function postPatient(PatientRequest $request){
         try {  
             $kq=[];
@@ -90,25 +124,31 @@ class PatientController extends Controller
 
         return response()->json($this->respon);
     }
-    //save data
+    /*
+     * function putPatient -- delete edit data json
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function putPatient(Request $request){
         try { 
             
             $kq=[];
             $data['data'] = json_decode($request->myArray, true);
-            $mess =  [
-                'data.*.name.required'         => '1',
-                'data.*.birthday.required'     => '1',
-                'data.*.birthday.date'         => '3',
-                'data.*.address.required'      => '1',
-                'data.*.gender.required'       => '1',
-                'data.*.phone.required'        => '1',
-                'data.*.phone.integer'         => '3',
-                'data.*.email.required'        => '3',
-                'data.*.email.email'           => '3',
-                'data.*.cmnd.required'         => '1',
-                'data.*.blood_type.required'   => '1',
-            ];
+            $mess=[];
+            // dd($data['data']);
+            foreach($data['data'] as $key => $value){
+                $id = $value['id'];
+                foreach($value as $k => $item){
+                    $mess["data.$key.$k.required"] = ["$id",'1'] ;
+                    $mess["data.$key.$k.date"] = ["$id",'3'] ;
+                    $mess["data.$key.$k.integer"] = ["$id",'3'] ;
+                    $mess["data.$key.$k.email"] = ["$id",'3'] ;
+                }
+            }
             $validator = Validator::make($data, [
                 'data.*.name'           => 'required',
                 'data.*.birthday'       => 'required|date',
@@ -122,11 +162,19 @@ class PatientController extends Controller
             ],$mess);
            
             if ($validator->fails()) {
-             
                 $this->respon['status'] = NG;
                 $error = $validator -> errors()->toArray(); 
-                foreach($error as $key => $vla){
-                    $this->respon['errors'][substr($key,7)]=$vla[0];
+               
+                //one 1 value
+                foreach($error as $key => $item){
+                    $index = strpos($key,".") + 3;  //find
+                    $temp = [
+                        'item'       =>substr($key,$index), //trim
+                        'message_no' => $item[0][1],// key one mess
+                        'error_typ'  => 2,
+                        'value1'     => $item[0][0]  //position row
+                    ];
+                    array_push($this->respon['errors'], $temp);  
                 }
             }else{
                 $param = $request->all();
@@ -137,12 +185,8 @@ class PatientController extends Controller
                 }else if(isset($result[0]) && !empty($result[0])){
                     $this->respon['status']     = NG;
                     foreach ($result[0] as $temp) {
-                       array_push($kq,$temp);
+                        array_push($this->respon['errors'], $temp);
                     }
-                    foreach ( $kq as $vla) {
-                       //one key one mess
-                       $this->respon['errors'][$vla['item']][0]=$kq[0]['message_no'];
-                    } 
                 }
             }
            
@@ -152,7 +196,15 @@ class PatientController extends Controller
          }
           return response()->json($this->respon);
     }
-    //edit one data
+    /*
+     * function patchPatient --edit one data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function patchPatient(PatientRequest $request){
         try {   
             $kq=[];
@@ -173,12 +225,8 @@ class PatientController extends Controller
             }else if(isset($result[0]) && !empty($result[0])){
                 $this->respon['status']     = NG;
                 foreach ($result[0] as $temp) {
-                   array_push($kq, $temp);
+                    array_push($this->respon['errors'], $temp);
                 }
-                foreach ( $kq as $vla) {
-                   //one key one mess
-                   $this->respon['errors'][$vla['item']][0]=$kq[0]['message_no'];
-                } 
             }
         } catch(\Exception $e) {
             $this->respon['status']     = EX;

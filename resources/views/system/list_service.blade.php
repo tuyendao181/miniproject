@@ -45,8 +45,8 @@
                 <tr data-id="{{$item['service_id']}}">
                     <td class="stt">{{$item['no']}}</td>
                     <td class="" >{{$item['service_id']}}</td>
-                    <td class="row_data" data-colum="name" val="{{$item['service_nm']}}" contenteditable>{{$item['service_nm']}}</td>
-                    <td class="row_data" data-colum="price"   val="{{$item['service_price']}}" contenteditable>{{$item['service_price']}}</td>
+                    <td class="row_data name" data-colum="name" val="{{$item['service_nm']}}" contenteditable>{{$item['service_nm']}}</td>
+                    <td class="row_data price" data-colum="price"   val="{{$item['service_price']}}" contenteditable>{{$item['service_price']}}</td>
                     <td class="edit">sửa</td>
                     <td class="delete">xóa</td>
                 </tr>

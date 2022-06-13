@@ -143,7 +143,7 @@ function refer_ajax(data){
                     $('#text-doctor').text(data.doctor_nm);
                     $('#text-remark').text(data.remark);
                     $('#money-total').text(data.total);
-                    
+                    $('.tbody-table').html('');
                     $.each(res['medicines'],function(item,value){
                         $('.tbody-table').append(`
                         <tr>

@@ -17,34 +17,34 @@
        </tr>
    </thead>
    <tbody>
-          @foreach($data['data'] as $key => $item)
-          <tr data-id="{{$item['patient_id']}}">
-              <td class="stt">{{$item['no']}}</td>
-              <td class="" >{{$item['patient_id']}}</td>
-              <td class="row_data" data-colum="name"    val="{{$item['patient_nm']}}"      contenteditable>{{$item['patient_nm']}}</td>
-              <td class="row_data" data-colum="birthday"val="{{$item['patient_birthday']}}"contenteditable>{{$item['patient_birthday']}}</td>
-              <td class="row_data" data-colum="address" val="{{$item['patient_address']}}" contenteditable>{{$item['patient_address']}}</td>
-              <td class="gender"   data-colum="gender"  val="{{$item['patient_gender']}}" >
-                    <select class="select-gender select_change" name="" id="">
-                    @foreach($data['gender'][0] as $key => $gender)
-                        <option  @if( $gender['library_id'] == $item['patient_gender'] ) selected @endif  class="option_{{$gender['library_id']}}" value="{{$gender['library_id']}}">{{$gender['library_value']}}</option>
-                    @endforeach
-                    </select>
-              </td>
-              <td class="gender"   data-colum="gender"  val="{{$item['patient_blood_type']}}" >
-                    <select class="select-blood select_change" name="" id="">
-                    @foreach($data['blood_type'][0] as $key => $gender)
-                        <option  @if( $gender['library_id'] == $item['patient_blood_type'] ) selected @endif  class="option_{{$gender['library_id']}}" value="{{$gender['library_id']}}">{{$gender['library_value']}}</option>
-                    @endforeach
-                    </select>
-              </td>
-              <td class="row_data" data-colum="phone"   val="{{$item['patient_phone']}}" contenteditable>{{$item['patient_phone']}}</td>
-              <td class="row_data" data-colum="email"   val="{{$item['patient_email']}}" contenteditable>{{$item['patient_email']}}</td>
-              <td class="row_data" data-colum="cmnd"   val="{{$item['patient_cmnd']}}" contenteditable>{{$item['patient_cmnd']}}</td>
-              <td class="edit" data-toggle="modal" data-target="#modelId">sửa</td>
-              <td class="delete">xóa</td>
-          </tr>
-          @endforeach
+        @foreach($data['data'] as $key => $item)
+             <tr data-id="{{$item['patient_id']}}">
+                 <td class="stt">{{$item['no']}}</td>
+                 <td class="" >{{$item['patient_id']}}</td>
+                 <td class="row_data name" data-colum="name"    val="{{$item['patient_nm']}}"      contenteditable>{{$item['patient_nm']}}</td>
+                 <td class="row_data birthday" data-colum="birthday"val="{{$item['patient_birthday']}}"contenteditable>{{$item['patient_birthday']}}</td>
+                 <td class="row_data address" data-colum="address" val="{{$item['patient_address']}}" contenteditable>{{$item['patient_address']}}</td>
+                 <td class="gender"   data-colum="gender"  val="{{$item['patient_gender']}}" >
+                       <select class="select-gender select_change" name="" id="">
+                       @foreach($data['gender'][0] as $key => $gender)
+                           <option  @if( $gender['library_id'] == $item['patient_gender'] ) selected @endif  class="option_{{$gender['library_id']}}" value="{{$gender['library_id']}}">{{$gender['library_value']}}</option>
+                       @endforeach
+                       </select>
+                 </td>
+                 <td class="gender"   data-colum="gender"  val="{{$item['patient_blood_type']}}" >
+                       <select class="select-blood select_change" name="" id="">
+                       @foreach($data['blood_type'][0] as $key => $gender)
+                           <option  @if( $gender['library_id'] == $item['patient_blood_type'] ) selected @endif  class="option_{{$gender['library_id']}}" value="{{$gender['library_id']}}">{{$gender['library_value']}}</option>
+                       @endforeach
+                       </select>
+                 </td>
+                 <td class="row_data phone" data-colum="phone"   val="{{$item['patient_phone']}}" contenteditable>{{$item['patient_phone']}}</td>
+                 <td class="row_data email" data-colum="email"   val="{{$item['patient_email']}}" contenteditable>{{$item['patient_email']}}</td>
+                 <td class="row_data cmnd" data-colum="cmnd"   val="{{$item['patient_cmnd']}}" contenteditable>{{$item['patient_cmnd']}}</td>
+                 <td class="edit" data-toggle="modal" data-target="#modelId">sửa</td>
+                 <td class="delete">xóa</td>
+             </tr>
+        @endforeach
     </tbody>
 </table>
     

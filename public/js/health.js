@@ -125,12 +125,13 @@ function initEvents() {
                             jMessage(7,function(r){
                                 $('#save').attr('disabled',true);
                                 $('#export').removeAttr('disabled');
+                                $('#export a').removeAttr('disabled');
                                
                             });
                             break;
                         case NG:
                            
-                            setErrors2(res['errors'])
+                            setErrors(res['errors'])
                             break;
                         case EX:
                             jError('Exception','202 Exception');

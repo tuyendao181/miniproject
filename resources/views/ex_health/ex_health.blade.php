@@ -134,7 +134,7 @@
             </div>
             <div class="btn_order">
                 <button  class='btn-button' id="save">Lưu</button>
-                <button  class='btn-button' id="export" disabled><a href="{{route('healthPDF')}}">Xuất</a></button>
+                <button  class='btn-button' id="export" disabled><a href="{{route('healthPDF')}}" disabled sytle="text-decoration: none !important;">Xuất</a></button>
                 <button  class='btn-button' id="new_page">Làm mới</button>
             </div>
        </div>

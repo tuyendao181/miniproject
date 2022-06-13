@@ -244,8 +244,7 @@ function ajax_Save(data){
                     });
                     break;
                 case NG:
-                   
-                    setErrors2(res['errors'])
+                    setErrors(res['errors'])
                     break;
                 case EX:
                     jError('Exception','202 Exception');

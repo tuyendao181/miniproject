@@ -30,7 +30,9 @@
             </div>
              </div>
      </div>
-    
+     <script> 
+        var _text = {!! json_encode($text) !!} ;
+    </script>
     <!-- jQuery  -->
     <script src="js/jquery-3.6.0.min.js"></script>
     <!-- jQuery jquery-ui -->
@@ -42,7 +44,6 @@
     <script src="js/select2.min.js"></script>
     <script src="js/jmessages.js"></script>
     <script src="js/ansplugin.js"></script>
-    <!-- <script src="js/list-message.js"></script> -->
     <script src="js/common.js"></script>
     @yield('asset_footer')
    

@@ -10,6 +10,14 @@ use Session;
 
 class UserController extends Controller
 {
+    /*
+     * function listUser -- list data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
     public function listUser(){
         $result['data'] = DAO::executeSql('SPC_USER_LST_1');
         $result['gender'] = DAO::executeSql('SPC_LIBRARY_INQ_2');
@@ -17,6 +25,15 @@ class UserController extends Controller
         $result['user_id']= $user['user_id'];
         return view('system.list_user',compact('result'));
     }
+    /*
+     * function addUser -- add data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function addUser(UserRequest $request){
         try { 
              $params['name']       = $request -> name ; 
@@ -68,6 +85,15 @@ class UserController extends Controller
         }
          return response()->json($this->respon);
     }
+    /*
+     * function editUser -- edit  data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function editUser(UserRequest $request){
         try { 
              $params['id']         = $request -> id ; 
@@ -121,7 +147,15 @@ class UserController extends Controller
         }
          return response()->json($this->respon);
     }
-
+    /*
+     * function deletetUser -- delete data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function deletetUser(Request $request){
        try{
             $params['id']    = $request->id;
@@ -133,8 +167,15 @@ class UserController extends Controller
        }
         return response()->json($this->respon);
     }
-
-      // refer data edit 
+    /*
+     * function referUser -- refer data edit
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+     
       public function referUser(Request $request ){
         try{  
             $param['id'] = $request->id;

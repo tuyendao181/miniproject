@@ -8,11 +8,29 @@ use Illuminate\Support\Facades\Validator;
 
 class MailController extends Controller
 {
+     /*
+     * function listMail -- list data
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function listMail(Request $request){
         $result = DAO::executeSql('SPC_SEND_MAIL_LST_1');
         return view('ex_health.list_re_exam',compact('result'));
        
     }
+     /*
+     * function sendMail -- send mail
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function sendMail(Request $request){
         try {   
             $result = DAO::executeSql('SPC_SEND_MAIL_LST_1');

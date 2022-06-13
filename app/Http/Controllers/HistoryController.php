@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use session;
 class HistoryController extends Controller
 {
-    // public function getHistory(){
-    //     return view('ex_health.history');
-    // }
-
+    /*
+     * function getHistory -- list history  
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
     public function getHistory(Request $request){
         $user = Session::get('user');
         $data['user_id']= $user['user_id'];
@@ -18,7 +22,15 @@ class HistoryController extends Controller
         return view('ex_health.history',compact('data'));
     }
 
-    //paginate
+    /*
+     * function paginateHistory -- paginate  
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
     public function paginateHistory(Request $request){
         if(empty($request->keyword)){
             $params['keyword'] = '';
@@ -38,7 +50,6 @@ class HistoryController extends Controller
         else{
             $params['limit'] = $request->limit;
         }
-      
 
         $result = DAO::executeSql('SPC_HISTORY_FND1',$params);
         $data['data']=$result[0];
@@ -51,13 +62,22 @@ class HistoryController extends Controller
         }  
     }
 
-     // refer data edit 
+     /*
+     * function detailHistory -- detail history
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
+    
      public function detailHistory(Request $request ){
         try{  
-            $param = $request->id;
+            $param['id'] = $request->id;
             $result = DAO::executeSql('SPC_DIAGNOSIS_INQ_1',$param);
+           
             $this->respon['data'] = $result[0][0];
-            $this->respon['medicines'] = $result[1];
+             $this->respon['medicines'] = $result[1];
         } catch(\Exception $e) {
             $this->respon['status']     = EX;
             $this->respon['Exception']  = $e->getMessage();

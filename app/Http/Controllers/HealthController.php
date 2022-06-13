@@ -8,6 +8,14 @@ use session;
 use PDF;
 class HealthController extends Controller
 {
+    /*
+     * function getHealth -- list data  
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
     public function getHealth(){
         try{  
             $result = DAO::executeSql('SPC_PATIENT_LST_1');
@@ -18,13 +26,20 @@ class HealthController extends Controller
             $this->respon['service'] = $service[0];
             $this->respon['doctor'] = $doctor[0];
             $this->respon['medicines'] = $medicines[0];
-            
         } catch(\Exception $e) {
             $this->respon['status']     = EX;
             $this->respon['Exception']  = $e->getMessage();
         }
         return response()->json($this->respon);
     }
+    /*
+     * function referHealth -- list data patient
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
     public function referHealth(Request $request){
         try{  
             $param['id'] = $request->id;
@@ -36,19 +51,33 @@ class HealthController extends Controller
         }
         return response()->json($this->respon);
     }
+    /*
+     * function saveHealth -- post data json
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
     public function saveHealth(Request $request){
         try{  
             $data['data_1'] = $request->diagnosis;
             $data['data_2'] = json_decode($request->diagnosis_detail, true);
-            $mess =  [
-                'data_1.*.patient.required'   => '1',
-                'data_1.*.doctor.required'    => '1',
-                'data_1.*.diagnois.required'  => '1',
-                'data_1.*.service.required'   => '1',
-                'data_2.*.name.required'      => '1',
-                'data_2.*.qtn.required'       => '1',
-                'data_2.*.use.required'       => '1',
-            ];
+
+            $mess=[];
+            // custom message
+            foreach($data['data_1'] as $key => $value){
+                foreach($value as $k => $item){
+                    $mess["data_1.$key.$k.required"] = ["",'1'] ;
+                }
+            }
+
+            foreach($data['data_2'] as $key => $value){
+              
+                foreach($value as $k => $item){
+                    $mess["data_2.$key.$k.required"] = ["",'1'] ;
+                }
+            }
             $validator = Validator::make($data, [
                 'data_1.*.patient'         => 'required',
                 'data_1.*.doctor'          => 'required',
@@ -64,9 +93,16 @@ class HealthController extends Controller
                 $this->respon['status'] = NG;
                 $error = $validator -> errors()->toArray(); 
                
-                foreach($error as $key => $vla){
-                    $c = strpos( $key,".") + 3;
-                    $this->respon['errors'][substr($key,$c)]=$vla[0];
+                //one 1 value
+                foreach($error as $key => $item){
+                    $index = strpos($key,".") + 3;  //find
+                    $temp = [
+                        'item'       =>substr($key,$index), //trim
+                        'message_no' => $item[0][1],// key one mess
+                        'error_typ'  => 2,
+                        'value1'     => $item[0][0]  //position row
+                    ];
+                    array_push($this->respon['errors'], $temp);  
                 }
             }else{
                 $diagnosis = $request-> diagnosis[0];
@@ -92,6 +128,14 @@ class HealthController extends Controller
         }
         return response()->json($this->respon);
     }
+    /*
+     * function healthPDF -- export PDF
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
     public function healthPDF(){
         $param['id'] = Session::get('id');
         $result = DAO::executeSql('SPC_DIAGNOSIS_INQ_1',$param);

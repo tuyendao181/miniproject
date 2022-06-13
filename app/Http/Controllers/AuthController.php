@@ -9,25 +9,42 @@ use Session;
 use DateTime;
 class AuthController extends Controller
 {
-    //
+    /*
+     * function login --  get login 
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
     public function login(){
         return view('login');
     }
+    /*
+     * function postLogin -- post login  
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
     public function postLogin(AuthRequest $request){
         try {
             $kq = [];
             $params['email']    = $request -> email;
             $params['password'] = $request -> password;
             $result = DAO::executeSql('SPC_USER_RPT1',$params);
-           
-            if(isset($result[0]) && empty($result[0])){
-                $this->respon['errors']  = 'Tài khoản mật khẩu không đúng';
-            }
-            else{
+            if(isset($result[0]) && !empty($result[0])){
+                $this->respon['status']     = NG;
+                foreach ($result[0] as $temp) {
+                    array_push($this->respon['errors'], $temp);
+                }
+            }else{
+
                 $dt = new DateTime();
                 $time = $dt->format('Y-m-d H:i:s');
                 Session::put('time_in',$time);
-                Session::put('user',$result[0][0]);
+                Session::put('user',$result[1][0]);
             }
         } catch(\Exception $e) {
             $this->respon['status']     = EX;
@@ -35,6 +52,15 @@ class AuthController extends Controller
         }
          return response()->json($this->respon);
     }
+
+    /*
+     * function logout -- logout account 
+     * @author    : tuyen – tuyendn@ans-asia.com - create
+     * @author    :
+     * @return    : null
+     * @access    : public
+     * @see       : init
+     */
 
     public function logout(){
         $id= Session::get('user');

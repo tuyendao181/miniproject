@@ -45,8 +45,8 @@
                 <tr data-id="{{$item['medicines_id']}}">
                     <td class="stt">{{$item['no']}}</td>
                     <td class="" >{{$item['medicines_id']}}</td>
-                    <td class="row_data" data-colum="medicines" val="{{$item['medicines_nm']}}" contenteditable>{{$item['medicines_nm']}}</td>
-                    <td class="row_data" data-colum="price"   val="{{$item['medicines_price']}}" contenteditable>{{$item['medicines_price']}}</td>
+                    <td class="row_data medicines" data-colum="medicines" val="{{$item['medicines_nm']}}" contenteditable>{{$item['medicines_nm']}}</td>
+                    <td class="row_data price" data-colum="price"   val="{{$item['medicines_price']}}" contenteditable>{{$item['medicines_price']}}</td>
                     <td class="edit">sửa</td>
                     <td class="delete">xóa</td>
                 </tr>
